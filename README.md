@@ -72,9 +72,11 @@ Your weight (kg): 75
 Your height (m): 1.75
 Your age (y): 18
 
+-----------------------------------
 Your BMI is 24.5
 Ideal weight between 55.7 kg and 78.4 kg.
 Normal weight.
+-----------------------------------
 ```
 
 or
