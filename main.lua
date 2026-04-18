@@ -53,15 +53,25 @@ while true do
     print("\n-------------------------------------------")
 
     -- Load classification data and calculate BMI
-    local classData = calcs.loadTable(address, age)
+    local classData, path = calcs.loadTable(address, age)
+
+    if (type(classData) == "nil") then
+        ui.showError("[!] File not found an '" .. path .. "'")
+
+        break
+    end
+
     local result = calcs.calculateBMI(weight, height, classData)
 
-    if (result ~= true) then
+    if (type(result) ~= "nil") then
         -- Display the BMI classification
         calcs.classifyBMI(result, classData)
 
         print("-------------------------------------------\n")
 
         break
+
+    else
+        ui.showError("[!] The calculated values are completely at odds with biological reality.")
     end
 end
