@@ -24,7 +24,7 @@ while true do
     io.write(colors.GREEN .."Your age (y): ".. colors.RESET)
     age = tonumber(io.read())
 
-    if (height > 3) then
+    if (height and height > 3) then
         ui.clearScreen()
         ui.printBanner()
 
