@@ -37,11 +37,11 @@ end
 
 print(" ")
 
-print("-------------------------------------------")
-
 -- Load classification data and calculate BMI
 local classData = calcs.loadTable(address, age)
 local bmi = calcs.calculateBMI(weight, height, classData)
+
+print("-------------------------------------------")
 
 -- Display the BMI classification
 calcs.classifyBMI(bmi, classData)
