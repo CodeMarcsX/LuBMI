@@ -59,6 +59,12 @@ function M.calculateBMI(weight, height, dataTable)
     local idealWeightMax = dataTable.maxNormal * heightSquared
     local idealWeightMin = dataTable.minNormal * heightSquared
 
+    -- Check if the values ​​exceed what is possible.
+    if (bmi < 8 or bmi > 150) or (idealWeightMin <= 0 or idealWeightMax > 250) then
+        print(colors.RED .. "[!] The calculated values are completely at odds with biological reality." .. colors.RESET)
+        os.exit()
+    end
+
     print(string.format("Your BMI is %.2f", bmi))
     print(string.format(colors.CYAN .."Ideal weight between %.2f kg and %.2f kg.".. colors.RESET, idealWeightMin, idealWeightMax))
 
