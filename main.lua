@@ -13,19 +13,31 @@ ui.printBanner()
 local address = "assets/dados.csv"
 local weight, height, age
 
--- Get user input for height, weight, and age
-io.write(colors.GREEN .."Your weight (kg): ".. colors.RESET)
-weight = tonumber(io.read())
+while true do
+    -- Get user input for height, weight, and age
+    io.write(colors.GREEN .."Your weight (kg): ".. colors.RESET)
+    weight = tonumber(io.read())
 
-io.write(colors.GREEN .."Your height (m): ".. colors.RESET)
-height = tonumber(io.read())
+    io.write(colors.GREEN .."Your height (m): ".. colors.RESET)
+    height = tonumber(io.read())
 
-io.write(colors.GREEN .."Your age (y): ".. colors.RESET)
-age = tonumber(io.read())
+    io.write(colors.GREEN .."Your age (y): ".. colors.RESET)
+    age = tonumber(io.read())
+
+    if weight and height and age then
+        break
+    else
+        ui.clearScreen()
+        ui.printBanner()
+
+        print(colors.RED .. "[!] Type valid numbers!" .. colors.RESET)
+        print(" ")
+    end
+end
 
 print(" ")
 
-print("-----------------------------------")
+print("-------------------------------------------")
 
 -- Load classification data and calculate BMI
 local classData = calcs.loadTable(address, age)
@@ -34,4 +46,4 @@ local bmi = calcs.calculateBMI(weight, height, classData)
 -- Display the BMI classification
 calcs.classifyBMI(bmi, classData)
 
-print("-----------------------------------")
+print("-------------------------------------------")
