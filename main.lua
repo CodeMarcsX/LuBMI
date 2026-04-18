@@ -25,25 +25,26 @@ while true do
         io.write(colors.GREEN .."Your age (y): ".. colors.RESET)
         age = tonumber(io.read())
 
+
         -- Checks
-        -- Weight
-        if (weight < 0) then
+        if (weight and height and age) then
+            -- Weight
+            if (weight < 0) then
             ui.showError("[!] Weight should not be seen as something negative!")
 
-        -- Height
-        elseif (height and height > 3) then
-            ui.showError("[!] Type height in meters!")
+            -- Height
+            elseif (height > 3) then
+                ui.showError("[!] Type height in meters!")
 
-        elseif (height < 0) then
-            ui.showError("[!] Height should not be seen as something negative!")
+            elseif (height < 0) then
+                ui.showError("[!] Height should not be seen as something negative!")
 
-        -- Age
-        elseif (age < 0) then
-            ui.showError("[!] Age should not be seen as something negative!")
-
-        -- Check if it's a number
-        elseif (weight and height and age) then
-            break
+            -- Age
+            elseif (age < 0) then
+                ui.showError("[!] Age should not be seen as something negative!")
+            else
+                break
+            end
 
         else
             ui.showError("[!] Type valid numbers!")
