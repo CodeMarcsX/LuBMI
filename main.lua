@@ -14,41 +14,54 @@ local address = "assets/dados.csv"
 local weight, height, age
 
 while true do
-    -- Get user input for height, weight, and age
-    io.write(colors.GREEN .."Your weight (kg): ".. colors.RESET)
-    weight = tonumber(io.read())
+    while true do
+        -- Get user input for height, weight, and age
+        io.write(colors.GREEN .."Your weight (kg): ".. colors.RESET)
+        weight = tonumber(io.read())
 
-    io.write(colors.GREEN .."Your height (m): ".. colors.RESET)
-    height = tonumber(io.read())
+        io.write(colors.GREEN .."Your height (m): ".. colors.RESET)
+        height = tonumber(io.read())
 
-    io.write(colors.GREEN .."Your age (y): ".. colors.RESET)
-    age = tonumber(io.read())
+        io.write(colors.GREEN .."Your age (y): ".. colors.RESET)
+        age = tonumber(io.read())
 
-    if (height and height > 3) then
-        ui.clearScreen()
-        ui.printBanner()
+        -- Checks
+        -- Weight
+        if (weight < 0) then
+            ui.showError("[!] Weight should not be seen as something negative!")
 
-        print(colors.RED .. "[!] Type height in meters!\n" .. colors.RESET)
-    elseif (weight and height and age) then
+        -- Height
+        elseif (height and height > 3) then
+            ui.showError("[!] Type height in meters!")
+
+        elseif (height < 0) then
+            ui.showError("[!] Height should not be seen as something negative!")
+
+        -- Age
+        elseif (age < 0) then
+            ui.showError("[!] Age should not be seen as something negative!")
+
+        -- Check if it's a number
+        elseif (weight and height and age) then
+            break
+
+        else
+            ui.showError("[!] Type valid numbers!")
+        end
+    end
+
+    print("\n-------------------------------------------")
+
+    -- Load classification data and calculate BMI
+    local classData = calcs.loadTable(address, age)
+    local result = calcs.calculateBMI(weight, height, classData)
+
+    if (result ~= true) then
+        -- Display the BMI classification
+        calcs.classifyBMI(result, classData)
+
+        print("-------------------------------------------\n")
+
         break
-    else
-        ui.clearScreen()
-        ui.printBanner()
-
-        print(colors.RED .. "[!] Type valid numbers!" .. colors.RESET)
-        print(" ")
     end
 end
-
-print(" ")
-
-print("-------------------------------------------")
-
--- Load classification data and calculate BMI
-local classData = calcs.loadTable(address, age)
-local bmi = calcs.calculateBMI(weight, height, classData)
-
--- Display the BMI classification
-calcs.classifyBMI(bmi, classData)
-
-print("-------------------------------------------")
