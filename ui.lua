@@ -27,4 +27,12 @@ function M.printBanner()
     ]].. colors.RESET)
 end
 
+-- Print error
+function M.showError(msg)
+    M.clearScreen()
+    M.printBanner()
+
+    print(colors.BOLD .. colors.RED .. msg, "\n" .. colors.RESET)
+end
+
 return M
