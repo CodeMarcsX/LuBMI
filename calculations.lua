@@ -1,5 +1,6 @@
 -- CALCULATIONS.LUA
 local colors = require("colors")
+local ui = require("ui")
 local M = {}
 
 -- Loads BMI classification data from CSV file
@@ -8,7 +9,7 @@ function M.loadTable(path, searchAge)
 
     -- If CSV file cannot be opened
     if not archive then
-        print("Error: File not found at ".. path)
+        ui.showError("Error: File not found at ".. path)
         return nil
     end
 
@@ -21,12 +22,9 @@ function M.loadTable(path, searchAge)
         end
 
         local age = searchAge
-        
+
         if searchAge > 20 then
             age = 20
-        elseif searchAge < 0 then
-            print(colors.RED .. "[!] Age should not be seen as something negative!" .. colors.RESET)
-            os.exit()
         elseif searchAge < 2 then
             age = 2
         end
@@ -51,6 +49,8 @@ end
 
 -- Calculates BMI and displays ideal weight range
 function M.calculateBMI(weight, height, dataTable)
+    error = false
+
     -- Formula: BMI = weight / (height in meters)²
     local heightSquared = height * height
     local bmi = weight / heightSquared
@@ -61,8 +61,10 @@ function M.calculateBMI(weight, height, dataTable)
 
     -- Check if the values ​​exceed what is possible.
     if (bmi < 8 or bmi > 150) or (idealWeightMin <= 0 or idealWeightMax > 250) then
-        print(colors.RED .. "[!] The calculated values are completely at odds with biological reality." .. colors.RESET)
-        os.exit()
+        ui.showError("[!] The calculated values are completely at odds with biological reality.")
+
+        error = true
+        return error
     end
 
     print(string.format("Your BMI is %.2f", bmi))
