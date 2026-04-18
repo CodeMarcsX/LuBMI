@@ -26,6 +26,7 @@ function M.loadTable(path, searchAge)
             age = 20
         elseif searchAge < 0 then
             print(colors.RED .. "[!] Age should not be seen as something negative!" .. colors.RESET)
+            os.exit()
         elseif searchAge < 2 then
             age = 2
         end
