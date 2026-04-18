@@ -4,11 +4,8 @@ local M = {}
 
 -- Clears the terminal screen (works on Windows and Unix-like systems)
 function M.clearScreen()
-    if package.config:sub(1,1) == "\\" then
-        os.execute("cls")
-    else
-        os.execute("clear")
-    end
+    io.write("\27[2J\27[H\27[3J")
+    io.flush()
 end
 
 -- Displays the BMI calculator banner
