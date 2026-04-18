@@ -52,7 +52,7 @@ while true do
 
     print("\n-------------------------------------------")
 
-    -- Load classification data and calculate BMI
+    -- Load classification data
     local classData, path = calcs.loadTable(address, age)
 
     if (type(classData) == "nil") then
@@ -61,6 +61,7 @@ while true do
         break
     end
 
+    -- and
     local result = calcs.calculateBMI(weight, height, classData)
 
     if (type(result) ~= "nil") then
